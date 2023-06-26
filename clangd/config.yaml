@@ -1,3 +1,0 @@
-# see https://clangd.llvm.org/config.html#compileflags
-CompileFlags:                     # Tweak the parse settings
-  Add: [ --include-directory=/usr/local/include ]
