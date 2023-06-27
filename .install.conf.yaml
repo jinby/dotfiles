@@ -17,9 +17,9 @@
     ~/.haskeline:
     ~/.hgrc:
     ~/.shell:
-    ~/.vimrc:
+    # ~/.vimrc:
     ~/.config/lazygit: lazygit
-    # ~/.config/nvim: nvim
+    ~/.config/nvim: nvim
     ~/.config/alacritty: alacritty 
     ~/.vimrc_local:
     ~/.ideavimrc:
@@ -30,9 +30,9 @@
     # ~/.zfunctions/prompt_spaceship_setup: zsh/prompt/spaceship-prompt/spaceship.zsh
 
 - create:
-  - ~/.rtorrent/session
-  - ~/.rtorrent/watch
-  - ~/.rtorrent/downloads
+  #- ~/.rtorrent/session
+  #- ~/.rtorrent/watch
+  #- ~/.rtorrent/downloads
 
 - shell:
   - git submodule sync --recursive
