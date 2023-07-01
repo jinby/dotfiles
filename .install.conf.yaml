@@ -35,6 +35,7 @@
   #- ~/.rtorrent/downloads
 
 - shell:
+  - /bin/bash fonts/install.sh
   - git submodule sync --recursive
   # the following have to run after linking ~/.gitconfig
   - git update-submodules

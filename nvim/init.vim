@@ -109,19 +109,12 @@ map + :res +5<CR>
 map - :vertical :res-5<CR>
 map = :vertical :res+5<CR>
 
-" 关闭窗口
-nnoremap <silent> q <esc>:close<cr>
-vnoremap <silent> q <esc>:close<cr>
-
 " 使用回车打开关闭折叠
 "nnoremap <CR> za
 " shift enter，为何不可以？
 nnoremap <S-Return> zMzo
 " 关闭搜索颜色
 nnoremap <BackSpace> :nohl<cr>
-
-" 使用alt q关闭当前buffer
-nnoremap <M-q> <esc>:bdelete<cr>
 
 " 去除EX模式
 nmap Q <nop>
@@ -196,6 +189,7 @@ autocmd Filetype markdown inoremap <buffer> <silent> ,p ![](<++>) <++><Esc>F[a
 autocmd Filetype markdown inoremap <buffer> <silent> ,a [](<++>) <++><Esc>F[a
 
 
+
 call plug#begin('~/.vim/plugged')
 
    Plug 'scrooloose/nerdtree'
@@ -206,6 +200,8 @@ call plug#begin('~/.vim/plugged')
    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
    Plug 'junegunn/vim-easy-align'
+
+   Plug 'jiangmiao/auto-pairs'
 
    " Plug 'bling/vim-bufferline'
    Plug 'vim-airline/vim-airline'
@@ -252,7 +248,10 @@ let NERDTreeShowHidden=1
 let NERDTreeWinSize=25
 let g:nerdtree_tabs_open_on_console_startup=1
 let NERDTreeIgnore=['\.pyc','\~$','\.swp']
-let g:NERDTreeIndicatorMapCustom = {
+"let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeMouseMode=2
+let g:NERDTreeChDirMode=3
+let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
     \ "Untracked" : "✭",
@@ -266,9 +265,6 @@ let g:NERDTreeIndicatorMapCustom = {
     \ }
 
 " Airline
-set laststatus=2    " 始终显示状态栏
-let g:airline_theme='simple'
-let g:airline#extensions#tabline#enabled=1    " 开启 tab 栏
 
 
 
@@ -376,12 +372,10 @@ let g:floaterm_keymap_new = '<Leader>ft'
 
 nnoremap   <silent>   <F1>    :FloatermNew<CR>
 tnoremap   <silent>   <F1>   <C-\><C-n>:FloatermToggle<CR>
-command! FZF FloatermNew  fzf
-nmap <leader>ff :FZF<CR>
+command! FZF FloatermNew fzf
+nmap <leader>fz :FZF<CR>
 command! Ra FloatermNew ranger
 nmap <leader>ra :Ra<CR>
-
-
 
 " 搜索完后不自动跳到第一个结果文件
 cnoreabbrev Ack Ack!
@@ -394,41 +388,33 @@ nnoremap <leader>s :Ack!<CR>
 " 高亮搜索结果
 let g:ackhighlight = 1
 
-
-
-
 nmap ss <Plug>(easymotion-s2)
 
-
-
-
-let g:airline_theme="molokai" 
-
-"这个是安装字体后 必须设置此项" 
-let g:airline_powerline_fonts = 1   
-
- "打开tabline功能,方便查看Buffer和切换,省去了minibufexpl插件
- let g:airline#extensions#tabline#enabled = 1
- let g:airline#extensions#tabline#buffer_nr_show = 1
 
 "设置切换Buffer快捷键"
  nnoremap <tab> :bn<CR>
  nnoremap <C-tab> :bp<CR>
  " 关闭状态显示空白符号计数
- let g:airline#extensions#whitespace#enabled = 0
- let g:airline#extensions#whitespace#symbol = '!'
+ 
+set laststatus=2    " 始终显示状态栏
+let g:airline#extensions#tabline#enabled=1    " 开启 tab 栏
+let g:airline_theme="molokai" 
+let g:airline_powerline_fonts = 1   
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#whitespace#symbol = '!'
  " 设置consolas字体"前面已经设置过
- "set guifont=Consolas\ for\ Powerline\ FixedD:h11
   if !exists('g:airline_symbols')
     let g:airline_symbols = {}
   endif
-  " old vim-powerline symbols
-  let g:airline_left_sep = '⮀'
-  let g:airline_left_alt_sep = '⮁'
-  let g:airline_right_sep = '⮂'
-  let g:airline_right_alt_sep = '⮃'
-  let g:airline_symbols.branch = '⭠'
-  let g:airline_symbols.readonly = '⭤'
+
+let g:airline_left_sep = '▶'
+let g:airline_left_alt_sep = '❯'
+let g:airline_right_sep = '◀'
+let g:airline_right_alt_sep = '❮'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
 
 
   "undotree
@@ -453,18 +439,17 @@ let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu S
 let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 let g:Lf_ShortcutF = "<leader>rg"
 
+noremap <leader>ff :<C-U><C-R>=printf("Leaderf file %s", "")<CR><CR>
 noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
 noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
 noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 
-noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
-noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+"noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
+"noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
 " search visually selected text literally
-xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
-noremap go :<C-U>Leaderf! rg --recall<CR>
-
-
+"xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+"noremap go :<C-U>Leaderf! rg --recall<CR>
 
 
 
