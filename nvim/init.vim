@@ -84,8 +84,8 @@ map sk :set splitbelow<CR>:split<CR>
 " #noremap <LEADER>l <c-w>l<CR>
 " #noremap <LEADER>k <c-w>k<CR>
 
-noremap <LEADER>j :bn<CR>
-noremap <LEADER>h :bp<CR>
+noremap <LEADER>k :bn<CR>
+noremap <LEADER>j :bp<CR>
 
 " resize
 map <LEADER><up> :res +5<CR>
@@ -197,21 +197,30 @@ autocmd Filetype markdown inoremap <buffer> <silent> ,a [](<++>) <++><Esc>F[a
 
 
 call plug#begin('~/.vim/plugged')
+
    Plug 'scrooloose/nerdtree'
+   Plug 'ryanoasis/vim-devicons'
+   Plug 'xuyuanp/nerdtree-git-plugin'
+   Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
    Plug 'junegunn/vim-easy-align'
+
    " Plug 'bling/vim-bufferline'
    Plug 'vim-airline/vim-airline'
    Plug 'vim-airline/vim-airline-themes'
+
    Plug 'kien/ctrlp.vim'
    Plug 'FelikZ/ctrlp-py-matcher'
 
+   Plug 'tpope/vim-surround'
+
    Plug 'mbbill/undotree'
-   Plug 'ryanoasis/vim-devicons'
+
    Plug 'voldikss/vim-floaterm'
    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-   Plug 'voldikss/fzf-floaterm'
-   Plug 'tpope/vim-surround'
+   " Plug 'voldikss/fzf-floaterm'
    Plug 'terryma/vim-multiple-cursors'
    " Plug 'tpope/vim-commentary'
    Plug  'scrooloose/nerdcommenter'
@@ -221,7 +230,6 @@ call plug#begin('~/.vim/plugged')
    "  scolorschemes'
   " Plug 'itchyny/lightline.vim'
    Plug 'easymotion/vim-easymotion'
-   " Plug 'sonph/onehalf', { 'rtp': 'vim' }
    Plug 'ful1e5/onedark.nvim'
    Plug 'jbyuki/venn.nvim'
    Plug 'mileszs/ack.vim'
@@ -229,35 +237,20 @@ call plug#begin('~/.vim/plugged')
    Plug 'mhinz/vim-startify'
    Plug 'xiyaowong/nvim-transparent'
    Plug 'majutsushi/tagbar'
+   Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+   Plug 'airblade/vim-rooter'
 call plug#end()
 
 
-
-
-
-
-
-
-
-
-
-
 map tt :NERDTreeToggle<CR>
-""当NERDTree为剩下的唯一窗口时自动关闭
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-""修改树的显示图标
-let g:NERDTreeDirArrowExpandable = '►'
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif ""当NERDTree为剩下的唯一窗口时自动关闭
+let g:NERDTreeDirArrowExpandable = '►' 
 let g:NERDTreeDirArrowCollapible = '▼'
 let NERDTreeAutoCenter=1
-" 显示行号
 let NERDTreeShowLineNumbers=1
-" 是否显示隐藏文件
 let NERDTreeShowHidden=1
-" 设置宽度
 let NERDTreeWinSize=25
-" 在终端启动vim时，共享NERDTree
 let g:nerdtree_tabs_open_on_console_startup=1
-" 忽略一下文件的显示
 let NERDTreeIgnore=['\.pyc','\~$','\.swp']
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
@@ -271,12 +264,9 @@ let g:NERDTreeIndicatorMapCustom = {
     \ 'Ignored'   : '☒',
     \ "Unknown"   : "?"
     \ }
-" }}}
-"
-"
 
-set laststatus=2    " 始终显示状态栏
 " Airline
+set laststatus=2    " 始终显示状态栏
 let g:airline_theme='simple'
 let g:airline#extensions#tabline#enabled=1    " 开启 tab 栏
 
@@ -372,16 +362,11 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
-
-
 " set background=dark
 "set background=light
 " colorscheme synthwave84
-
 " colorscheme onehalflight
 " let g:lightline.colorscheme='onehalfdark'
-
-
 " colorscheme onedark
 
 
@@ -389,10 +374,13 @@ let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:floaterm_keymap_new = '<Leader>ft'
 
 
-map <F1> :FloatermNew<cr>
-command! Rg FloatermNew --width=0.8 --height=0.8 rg
-command! FZF FloatermNew fzf'
-command! Ranger FloatermNew ranger
+nnoremap   <silent>   <F1>    :FloatermNew<CR>
+tnoremap   <silent>   <F1>   <C-\><C-n>:FloatermToggle<CR>
+command! FZF FloatermNew  fzf
+nmap <leader>ff :FZF<CR>
+command! Ra FloatermNew ranger
+nmap <leader>ra :Ra<CR>
+
 
 
 " 搜索完后不自动跳到第一个结果文件
@@ -449,6 +437,37 @@ set undodir=~/.undodir/
 set undofile
 
 
-
 nmap <F8> :TagbarToggle<CR>
 
+
+" don't show the help in normal mode
+let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
+let g:Lf_HideHelp = 1
+let g:Lf_UseCache = 0
+let g:Lf_UseVersionControlTool = 0
+let g:Lf_IgnoreCurrentBufferName = 1
+" popup mode
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewInPopup = 2
+let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
+let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
+let g:Lf_ShortcutF = "<leader>rg"
+
+noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
+noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+
+noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
+noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+" search visually selected text literally
+xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+noremap go :<C-U>Leaderf! rg --recall<CR>
+
+
+
+
+
+" rooter 
+"
+let g:rooter_patterns = ['.git', 'Makefile', '*.sln', 'build/env.sh']
