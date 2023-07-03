@@ -88,8 +88,8 @@ noremap <LEADER>k :bn<CR>
 noremap <LEADER>j :bp<CR>
 
 " resize
-map <LEADER><up> :res +5<CR>
-map <LEADER><down> :res -5<CR>
+map <LEADER><up> :res -5<CR>
+map <LEADER><down> :res +5<CR>
 map <LEADER><left> :vertical resize-5<CR>
 map <LEADER><right> :vertical resize+5<CR>
 
@@ -217,10 +217,14 @@ call plug#begin('~/.vim/plugged')
    Plug 'voldikss/vim-floaterm'
    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
    " Plug 'voldikss/fzf-floaterm'
-   Plug 'terryma/vim-multiple-cursors'
+   " Plug 'terryma/vim-multiple-cursors'
+   "   Plug 'mg979/vim-visual-multi'
+   
+   Plug 'liuchengxu/vim-which-key'
    " Plug 'tpope/vim-commentary'
    Plug  'scrooloose/nerdcommenter'
    Plug 'gcmt/wildfire.vim'
+   Plug 'tpope/vim-repeat'
    " Plug 'flazz/vim-
    "
    "  scolorschemes'
@@ -235,6 +239,12 @@ call plug#begin('~/.vim/plugged')
    Plug 'majutsushi/tagbar'
    Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
    Plug 'airblade/vim-rooter'
+   Plug 'tyrannicaltoucan/vim-quantum'
+
+   Plug 'liuchengxu/vista.vim' "need install https://github.com/universal-ctags/ctags
+   Plug 'christoomey/vim-system-copy'
+
+   Plug 'mortonfox/nerdtree-clip'
 call plug#end()
 
 
@@ -366,12 +376,24 @@ let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 " colorscheme onedark
 
 
+let g:system_copy#copy_command='xclip -sel clipboard'
+let g:system_copy#paste_command='xclip -sel clipboard -o'
+nmap zy <Plug>SystemCopy
+xmap zy <Plug>SystemCopy
+nmap zyy <Plug>SystemCopyLine
+nmap zp <Plug>SystemPaste
+let g:system_copy_silent = 1
 
+
+
+
+"
+" floaterm
+"
 let g:floaterm_keymap_new = '<Leader>ft'
-
-
-nnoremap   <silent>   <F1>    :FloatermNew<CR>
+nnoremap   <silent>   <F4>    :FloatermNew<CR>
 tnoremap   <silent>   <F1>   <C-\><C-n>:FloatermToggle<CR>
+noremap    <F1>   :FloatermToggle<CR>
 command! FZF FloatermNew fzf
 nmap <leader>fz :FZF<CR>
 command! Ra FloatermNew ranger
@@ -456,3 +478,23 @@ noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 " rooter 
 "
 let g:rooter_patterns = ['.git', 'Makefile', '*.sln', 'build/env.sh']
+
+
+"
+" which-key
+"
+let g:mapleader = "\<Space>"
+let g:maplocalleader = ','
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+
+
+"
+"themes
+"
+set background=dark
+set termguicolors
+let g:quantum_black=1
+let g:airline_theme='quantum'
+colorscheme quantum
+
