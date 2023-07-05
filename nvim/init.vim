@@ -245,6 +245,12 @@ call plug#begin('~/.vim/plugged')
    Plug 'christoomey/vim-system-copy'
 
    Plug 'mortonfox/nerdtree-clip'
+
+   Plug 'tiagovla/tokyodark.nvim'
+   
+   Plug 'dr4vs/neon.nvim'
+
+   Plug 'rhysd/accelerated-jk'
 call plug#end()
 
 
@@ -493,8 +499,18 @@ nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 "themes
 "
 set background=dark
-set termguicolors
-let g:quantum_black=1
-let g:airline_theme='quantum'
-colorscheme quantum
+"set termguicolors
+"let g:quantum_black=1
+"let g:airline_theme='quantum'
+"colorscheme quantum
 
+let g:tokyodark_transparent_background = 0
+let g:tokyodark_enable_italic_comment = 1
+let g:tokyodark_enable_italic = 1
+let g:tokyodark_color_gamma = "1.0"
+colorscheme tokyodark
+
+
+" let g:accelerated_jk_acceleration_limit = 250
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
