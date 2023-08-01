@@ -17,6 +17,12 @@ set shiftwidth=4   "#配置自动缩进的字符数目
 set autoindent
 set cindent
 set scrolloff=6
+" set cursorline 
+" set cursorcolumn
+" hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white 
+" hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white
+" highlight Cursor guifg=white guibg=black 
+" highlight iCursor guifg=white guibg=steelblue
 
 set showmatch
 set guioptions-=T
@@ -251,6 +257,9 @@ call plug#begin('~/.vim/plugged')
    Plug 'dr4vs/neon.nvim'
 
    Plug 'rhysd/accelerated-jk'
+   Plug 'numToStr/FTerm.nvim'
+
+   Plug 'junegunn/vim-easy-align'
 call plug#end()
 
 
@@ -514,3 +523,11 @@ colorscheme tokyodark
 " let g:accelerated_jk_acceleration_limit = 250
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
+
+
+
+" vipga= gaip=
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
