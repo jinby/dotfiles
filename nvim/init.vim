@@ -260,6 +260,10 @@ call plug#begin('~/.vim/plugged')
    Plug 'numToStr/FTerm.nvim'
 
    Plug 'junegunn/vim-easy-align'
+
+   Plug 'joeytwiddle/sexy_scroller.vim'
+   Plug 'echasnovski/mini.animate'
+
 call plug#end()
 
 
