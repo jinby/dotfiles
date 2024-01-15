@@ -20,12 +20,9 @@ return {
             ensure_installed={ 
                 'sqlls',
                 'typst_lsp',
-                'bufls',
-                'svls',
                 'rust_analyzer',
                 'eslint',
                 "html",
-                "js_ls",
                 "lua_ls",
                 "clangd",
                 "cmake",
@@ -33,18 +30,4 @@ return {
         })
     end
   },
-  {
-    "nvimdev/lspsaga.nvim",
-    event = "LspAttach",
-    config = function()
-      require("lspsaga").setup()
-    end,
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter'
-    }
-  },
-  {
-    'kaarmu/typst.vim',
-    ft = 'typst',
-  }
 }

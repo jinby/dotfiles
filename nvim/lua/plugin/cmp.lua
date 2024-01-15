@@ -1,5 +1,11 @@
 return {
     {
+        "hrsh7th/nvim-cmp",
+    },
+    {
+        "hrsh7th/cmp-nvim-lsp",
+    },
+    {
      "quangnguyen30192/cmp-nvim-ultisnips",
     },
     {
@@ -7,12 +13,6 @@ return {
     },
     {
         "onsails/lspkind-nvim",
-    },
-    {
-        "hrsh7th/nvim-cmp",
-    },
-    {
-        "hrsh7th/cmp-nvim-lsp",
     },
     {
         "hrsh7th/cmp-buffer",

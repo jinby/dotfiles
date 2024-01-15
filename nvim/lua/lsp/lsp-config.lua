@@ -4,7 +4,7 @@
 --local capabilities = require("lspconfig").capabilities
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lspconfig = require "lspconfig"
-local servers = { "html", "cssls", "clangd", "lua" }
+local servers = { "html", "cssls", "clangd", "lua_ls", "cmake" }
 
 local on_attach = function(_, bufnr)
     local function buf_set_keymap(...)
