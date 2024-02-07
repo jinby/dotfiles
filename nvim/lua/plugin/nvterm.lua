@@ -10,10 +10,10 @@ return {
             }
             local toggle_modes = {'n', 't'}
             local mappings = {
-                { 'n', '<C-l>', function () terminal.send(ft_cmds[vim.bo.filetype]) end },
-                { toggle_modes, '<A-h>', function () terminal.toggle('horizontal') end },
-                { toggle_modes, '<A-v>', function () terminal.toggle('vertical') end },
-                { toggle_modes, '<A-i>', function () terminal.toggle('float') end },
+                { 'n', '<C-t>', function () terminal.send(ft_cmds[vim.bo.filetype]) end },
+                -- { toggle_modes, '<A-h>', function () terminal.toggle('horizontal') end },
+                -- { toggle_modes, '<A-v>', function () terminal.toggle('vertical') end },
+                { toggle_modes, '<A-t>', function () terminal.toggle('float') end },
             }
             local opts = { noremap = true, silent = true }
             for _, mapping in ipairs(mappings) do
