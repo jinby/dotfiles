@@ -22,3 +22,4 @@ require("lsp")
 
 require("config/setting")
 require("config/keymapex")
+require("config/telescope-expand")

@@ -1,7 +1,7 @@
 return {
     "ethanholz/nvim-lastplace",
-    lazy = true,
-    event = { "User FileOpened" },
+    -- lazy = true,
+    --    event = { "User FileOpened" },
     config = function()
         require("nvim-lastplace").setup({
             lastplace_ignore_buftype = { "quickfix", "nofile", "help" },

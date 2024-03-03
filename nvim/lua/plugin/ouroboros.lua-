@@ -1,0 +1,11 @@
+return{
+    'jakemason/ouroboros',
+    dependencies = {
+        'nvim-lua/plenary.nvim'
+    },
+    -- config = function()
+    --   require("ouroboros").setup({
+    --         
+    --         })
+    -- end,
+}

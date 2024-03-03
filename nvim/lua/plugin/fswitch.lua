@@ -1,0 +1,5 @@
+return {
+    {
+        'derekwyatt/vim-fswitch'
+    }
+}

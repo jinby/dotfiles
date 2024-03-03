@@ -29,15 +29,21 @@ local kind_icons = {
 -- https://github.com/onsails/lspkind.nvim
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
+local has_words_before = function()
+  unpack = unpack or table.unpack
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 local cmp = require('cmp')
-
+local luasnip = require("luasnip")
 cmp.setup{
   snippet = {
     expand = function(args)
-      vim.fn["UltiSnips#Anon"](args.body)
+      vim.fn["luasnip"](args.body)
     end,
   },
   window = {
@@ -49,6 +55,10 @@ cmp.setup{
       c = function()
         if cmp.visible() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+        elseif luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
         else
           cmp.complete()
         end
@@ -65,6 +75,8 @@ cmp.setup{
       c = function()
         if cmp.visible() then
           cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+        elseif luasnip.jumpable(-1) then
+          luasnip.jump(-1)
         else
           cmp.complete()
         end
@@ -134,7 +146,8 @@ cmp.setup{
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
       vim_item.menu = ({
         nvim_lsp = "[LSP]",
-        ultisnips = "[Snippet]",
+        luasnip = "[Snippet]",
+        -- ultisnips = "[Snippet]",
         buffer = "[Buffer]",
         path = "[Path]",
       })[entry.source.name]
@@ -144,6 +157,7 @@ cmp.setup{
 
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
+    { name = 'luasnip' }, -- For luasnip users.
     { name = 'ultisnips' },
   }, {
     { name = 'buffer' },

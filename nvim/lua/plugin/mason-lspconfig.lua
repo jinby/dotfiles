@@ -18,11 +18,8 @@ return {
         })
         require("mason-lspconfig").setup({
             ensure_installed={ 
-                'sqlls',
                 'typst_lsp',
                 'rust_analyzer',
-                'eslint',
-                "html",
                 "lua_ls",
                 "clangd",
                 "cmake",

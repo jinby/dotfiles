@@ -27,6 +27,7 @@
     ~/.zsh:
     ~/.zshrc:
     ~/.shell_local_before:
+    ~/.tmux.conf:
     # ~/.zfunctions/prompt_spaceship_setup: zsh/prompt/spaceship-prompt/spaceship.zsh
 
 - create:
