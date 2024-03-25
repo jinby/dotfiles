@@ -8,12 +8,14 @@ o.shiftwidth = 4
 o.tabstop = 4
 o.expandtab = true
 o.cursorline = true
+o.cursorcolumn = true
+o.guicursor = "a:blinkwait700-blinkon400-blinkoff250"
 o.termguicolors = true
 
 o.ignorecase = true
 o.smartcase = true
 o.signcolumn = "yes"
-o.termguicolors = true
+
 
 -- " Example binding -- only works in a c/cpp file
 -- autocmd! Filetype c,cpp map<buffer> <C-e> :Ouroboros<CR>
