@@ -16,7 +16,10 @@ o.ignorecase = true
 o.smartcase = true
 o.signcolumn = "yes"
 
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 
 -- " Example binding -- only works in a c/cpp file
 -- autocmd! Filetype c,cpp map<buffer> <C-e> :Ouroboros<CR>
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd[[colorscheme dracula]]

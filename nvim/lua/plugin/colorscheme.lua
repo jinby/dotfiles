@@ -11,4 +11,8 @@ return {
         priority = 1000,
         opts = {},
     },
+
+    {
+        "Mofiqul/dracula.nvim",
+    },
 }
